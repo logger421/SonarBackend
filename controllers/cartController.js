@@ -27,7 +27,7 @@ const createCart = async (req, res) => {
     let params = {item: Object.create(req.body.item)};
 
     try {
-        const cartCreated = await Cart.create({items: [item]});
+        const cartCreated = await Cart.create({items: [params.item]});
         res.status(200).json(cartCreated);
     } catch (err) {
         console.log(err);

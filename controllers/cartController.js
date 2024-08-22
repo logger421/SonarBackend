@@ -24,7 +24,7 @@ const getCart = async (req, res) => {
 };
 
 const createCart = async (req, res) => {
-    const {item} = req.body;
+    let params = {item: Object.create(req.body.item)};
 
     try {
         const cartCreated = await Cart.create({items: [item]});

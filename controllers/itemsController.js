@@ -24,21 +24,26 @@ const getItem = async (req, res) => {
 };
 
 const createItem = async (req, res) => {
-    const {name, description, price} = req.body;
+    const params = {
+        name: req.body.name.toString(),
+        description: req.body.description.toString(),
+        price: Number(req.body.price)
+    };
+
     let emptyFields = []
 
-    if (!name)
+    if (!params.name)
         emptyFields.push('name')
-    if (!description)
+    if (!params.description)
         emptyFields.push('description')
-    if (!price)
+    if (!params.price)
         emptyFields.push('price')
 
     if (emptyFields.length > 0)
         return res.status(400).json({error: `All fields must be filled`, emptyFields});
 
     try {
-        const ItemCreated = await Item.create({name, description, price});
+        const ItemCreated = await Item.create(params);
         res.status(200).json(ItemCreated);
     } catch (err) {
         console.log(err);

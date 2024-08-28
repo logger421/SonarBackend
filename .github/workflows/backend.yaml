@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+env:
+  APP_NAME: 'logger-app'
+  PROJECT_ID: 'poc-dev-433917'
+  GAR_NAME: 'logger-app'
+  GAR_LOCATION: 'europe-central2'
 
 jobs:
   build:
@@ -12,6 +17,7 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: 'actions/checkout@v3'
+
 
       - name: 'Google auth'
         id: 'auth'
@@ -22,13 +28,13 @@ jobs:
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v1'
         with:
-          project_id: 'poc-dev-433917'
+          project_id: '${{ env.PROJECT_ID }}'
 
       - name: 'Docker auth'
         run: |-
-          gcloud auth configure-docker europe-central2-docker.pkg.dev
+          gcloud auth configure-docker ${{ env.GAR_LOCATION }}-docker.pkg.dev
 
       - name: 'Build and push container'
         run: |-
-          docker build -t "europe-central2-docker.pkg.dev/poc-dev-433917/logger-app/logger-app:${{ github.sha }}" .
-          docker push "europe-central2-docker.pkg.dev/poc-dev-433917/logger-app/logger-app:${{ github.sha }}"
+          docker build -t "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.GAR_NAME }}/${{ env.APP_NAME }}:${{ github.sha }}" .
+          docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.GAR_NAME }}/${{ env.APP_NAME }}:${{ github.sha }}"

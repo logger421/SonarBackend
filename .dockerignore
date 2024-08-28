@@ -1,0 +1,7 @@
+*.md
+node_modules
+.husky
+.github
+sonar-project.properties
+package-lock.json
+.gitignore

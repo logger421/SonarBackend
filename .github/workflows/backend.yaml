@@ -5,7 +5,7 @@ on:
     branches:
       - main
 env:
-  APP_NAME: 'logger-app'
+  APP_NAME: 'app-backend'
   PROJECT_ID: 'poc-dev-433917'
   GAR_NAME: 'logger-app'
   GAR_LOCATION: 'europe-central2'

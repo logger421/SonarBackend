@@ -43,7 +43,6 @@ jobs:
         with:
           server_address: smtp.gmail.com
           server_port: 587
-          secure: true
           username: ${{ secrets.EMAIL }}
           password: ${{secrets.MAIL_PASSWORD}}
           subject: 'Build Completed'

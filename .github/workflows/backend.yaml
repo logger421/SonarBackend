@@ -38,3 +38,11 @@ jobs:
         run: |-
           docker build -t "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.GAR_NAME }}/${{ env.APP_NAME }}:${{ github.sha }}" .
           docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.GAR_NAME }}/${{ env.APP_NAME }}:${{ github.sha }}"
+
+      - name: 'Send email notification'
+        uses: 'actions/notify@v1'
+        with:
+          token: '${{ secrets.GITHUB_TOKEN }}'
+          to: '${{ secrets.EMAIL }}'
+          subject: 'Application has been built and deployed'
+          message: 'Application has been successfully built and the Docker image has been sent to GCP Artifact Registry.'

@@ -41,11 +41,12 @@ jobs:
       - name: 'Send notification'
         uses: 'dawidd6/action-send-mail@v3'
         with:
-          server_address: smtp.gmail.com
-          server_port: 465
+          server_address: smtp-mail.outlook.com
+          server_port: 587
+          secure: true
           username: ${{ secrets.EMAIL }}
-          password: ${{secrets.MAIL_PASSWORD}}
+          password: ${{ secrets.MAIL_PASSWORD }}
           subject: 'Build Completed'
-          body: 'Build job of ${{github.repository}} completed successfully!'
+          body: 'Build job of ${{ github.repository }} completed successfully!'
           to: ${{ secrets.EMAIL }}
           from: 'Logger App Workflow'
